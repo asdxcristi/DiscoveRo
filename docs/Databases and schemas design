@@ -1,0 +1,31 @@
+# Databases will use MongoDB as engine
+
+$Db name: users_info
+#Collections:
+#USER
+	-email
+	-password
+	-[] friends
+	-profile pic
+	-[] travel history
+	-current journey
+
+
+$Db name: active_objectives
+#Collections:
+#Objective
+	-name
+	-coordinates
+	-[] images
+	-description
+	-[] (user,rating,review)
+	
+	
+$Db name: staged_objectives
+#Collections:
+#Objective
+	-name
+	-coordinates
+	-[] images
+	-description
+	-[] (user,rating,review)
