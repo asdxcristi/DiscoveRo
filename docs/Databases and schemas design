@@ -15,7 +15,7 @@ $Db name: active_objectives
 #Collections:
 #Objective
 	-name
-	-coordinates
+	-[] coordinates
 	-[] images
 	-description
 	-[] (user,rating,review)
@@ -25,7 +25,7 @@ $Db name: staged_objectives
 #Collections:
 #Objective
 	-name
-	-coordinates
+	-[] coordinates
 	-[] images
 	-description
 	-[] (user,rating,review)
