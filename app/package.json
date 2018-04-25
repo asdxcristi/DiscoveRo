@@ -1,0 +1,24 @@
+{
+  "name": "discovero",
+  "version": "1.0.0",
+  "description": "kitty magic",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asdxcristi/DiscoveRo.git"
+  },
+  "author": "Team Kitty",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asdxcristi/DiscoveRo/issues"
+  },
+  "homepage": "https://github.com/asdxcristi/DiscoveRo#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "mongoose": "^5.0.16"
+  }
+}
