@@ -20,6 +20,9 @@ userRegisterRoute(app);
 var userProfileUpdateRoute = require('./routes/userProfileUpdateRoute');
 userProfileUpdateRoute(app);
 
+var mapObjectivesRoute = require('./routes/mapObjectivesRoutes');
+mapObjectivesRoute(app);
+
 app.listen(port);
 
 console.log("Server started on port: " + port);
