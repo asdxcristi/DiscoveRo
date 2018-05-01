@@ -1,10 +1,24 @@
 'use strict';
 
-//var mongoose = require('mongoose'),
-//	user = mongoose.model('User');
+const express = require('express');
+var mongoose = require('mongoose');
 
-//TODO: Complete with actual magic
+let User = require('../models/UserModel');
+
+const email = req.body.email;
+const password = req.body.password;
+
+req.checkBody('email', 'Email cannot be empty').notEmpty();
+req.checkBody('email', 'Email is not valid').isEmail();
+req.checkBody('password', 'Password cannot be empty').notEmpty();
+
 exports.updateUserProfile = function(req, res) {
-	console.log("[userProfileUpdate]"+req.body);
+	console.log("[userProfileUpdate]" + req.body);
 	res.json(req.body);
-	};
+
+	Model.findOne({ email: email }, function (err, user_to_update){
+		user_to_update.email = req.body.email;
+		user_to_update.password = req.body.password;
+		user_to_update.save();
+	});
+};
