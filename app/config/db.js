@@ -1,1 +1,3 @@
-//TODO: Mongo connection
+module.exports = {
+  db:'mongodb://localhost/users_info'
+}
