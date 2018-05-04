@@ -14,18 +14,20 @@ let User = require('../models/UserModel');
 exports.getUserInfo = function(req, res) {
 	console.log("[userInfo]" + req.params.userId);
 
+	User.findOne({'email': req.params.userId }, function (err, users) {
+	
+		if (err) {
+			return handleError(err);
+		} else {
+			if(users) {
+				console.log(users);	
+				res.json(users);
+			} else {
+				console.log("User not found!");
+			}	
+		}
 
-	var account = User.find({ 'email': req.params.userId }, function (err, users) {
-	  if (err) return handleError(err);
-
-	  console.log((users));
-
-	  res.
-
-	  // 'athletes' contains the list of athletes that match the criteria.
 	})
-	//console.log(account);
-
 	
 };
 	
