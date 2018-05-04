@@ -1,12 +1,11 @@
 'use strict';
 
 const express = require('express');
-const router = express.Router();
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 var mongoose = require('mongoose');
 
-let User = require('../models/UserModel');
+var User = mongoose.model('User', User);
 
 exports.registerUser = function(req, res) {
 	console.log("[userRegister]" + req.body);
@@ -14,41 +13,45 @@ exports.registerUser = function(req, res) {
 
 	const email = req.body.email;
 	const password = req.body.password;
-	const password_conf = req.body.password_conf;
 
-	req.checkBody('email', 'Email is required').notEmpty();
-	req.checkBody('email', 'Email is not valid').isEmail();
-	req.checkBody('password', 'Password is required').notEmpty();
-	req.checkBody('password_conf', 'Passwords do not match').equals(req.body.password);
+	// sanity checks
+	if(!email) {
+		console.log("Email is required");
+		return;
+	} else if (email.indexOf('@') == -1) {
+		console.log("Invalid email");
+		return;		
+	}
 
-	let errors = req.validationErrors();
+	if(!password) {
+		console.log('Password is required');
+		return;
+	}
 
-	if(errors){
-		res.render('register', {
-		  errors:errors
-		});
-	} else {
-		let newUser = new User({
-		  email:email,
-		  password:password
-		});
+	// create new entry
+	let newUser = new User({
+	  email:email,
+	  password:password
+	});
 
-		bcrypt.genSalt(10, function(err, salt){
-			bcrypt.hash(newUser.password, salt, function(err, hash){
-				if(err){
-				  console.log(err);
-				}
-			    newUser.password = hash;
-			    newUser.save(function(err){
-					if(err){
-						console.log(err);
-						return;
-					} else {
-						req.flash('success','Registration successful!');
-						res.redirect('/users/login');
-					}
-			    });
+	// password encryption
+	bcrypt.genSalt(10, function(err, salt){
+		bcrypt.hash(newUser.password, salt, function(err, hash){
+			if(err){
+			  console.log(err);
+			}
+		    newUser.password = hash;
+			User.count({email:email}, function (err, count) {
+			  if (!count) {
+			    console.log("User added successfully!");
+			    newUser.save();
+			  }
+			  else {
+			    console.log('User already exists');
+			    return;
+			  }
 			});
 		});
-	}
+	});
+
 };
